@@ -716,6 +716,8 @@ Définir les constantes du script au début
 */
 
 const NUMBER_OCCURENCE = 4;
+const NUMBER_FACE = 6;
+const NUMBER_DICE = 5;
 
 const game = {
   flagSquare: false,
@@ -725,9 +727,7 @@ const game = {
   numbers: [],
 };
 
-const NUMBER_DICE = 5;
-
-function throw_dice(number, face = 6) {
+function throw_dice(number, face = NUMBER_FACE) {
   let count = 0,
     res = [];
 
@@ -800,6 +800,22 @@ if (flagSet.size >= 5) {
 }
 
 console.log(game);
+
+
+// On peut aussi utiliser la fonction suivante pour savoir combien on de valeur(s) distinctes dans le tableau numbers
+
+function count_distinct_dice(){
+    const des = [];
+
+    for (let number = 1; number <= NUMBER_FACE; number++) {
+        let occ = occurence({ number, numbers }) ;
+        if(occ > 0)
+            des.push(occ);
+    }
+    
+    return des.length;
+}
+
 ```
 
 ### this dans le contexte de l'appel d'une fonction sur un objet <a class="anchor" id="section74"></a>
