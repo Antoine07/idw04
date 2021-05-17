@@ -697,7 +697,7 @@ baz({ b: 2, a : 1}); // 1 2
 
 ### Exercice Dés
 
-1. Créez une fonction qui lance N dés et qui retourne le résultat de ces N dé dans un littéral ou tableau.
+1. Créez une fonction qui lance N dés de 6 faces chacun et qui retourne le résultat de ces N dé dans un littéral ou tableau.
 
 2. Déterminez si les dés retournés dans ce tableau forment un carré : c'est-à-dire 4 dés identiques.
 
