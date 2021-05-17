@@ -828,12 +828,34 @@ Le this d'un objet est déterminé par la manière dont vous allez appeler l'obj
 Comment bien utiliser la fonction ci-dessous ? Donnez un exemple concret, comment vous allez l'appeler dans le script ?
 
 ```js
+"use strict"; // js vérifie la cohérence de votre code plus restriction
+
 function Model(table){
-    this.table = table;
+    this.table = table; // this c'est le this de l'instance de votre fonction constructeur
     
     console.log(this.table);
 }
+
+// la bonne syntaxe dans le script pour appeler cette fonction constructeur est la suivante 
+
+const Model = new Model("posts");
 ```
+
+### Exercice 
+
+Créez une fonction constructeur qui prend un tableau de valeurs numériques et augment ces valeurs d'un certain pourcentage. Cette fonction aura une propriété total permettant d'afficher un tableau des valeurs augmentées. Aidez-vous de l'exemple suivant. 
+
+```js
+"use strict";
+
+function Cart( prices ){
+
+}
+
+
+// myCart.total
+```
+
 
 L'objet sur lequel vous **appelez** la fonction détermine le this :
 
