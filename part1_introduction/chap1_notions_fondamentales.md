@@ -636,6 +636,51 @@ const badPriceHT = [100.50, "hello", 55.7];
 console.log(sumTTC(...badPriceHT, .3));
 ```
 
+### Correction
+
+```js
+
+const priceHT = [100.50, 200.8, 55.7];
+
+// Mettre le/les paramètres facultatifs en dernier dans les paramètres de la fonction
+function sumTTC(p1, p2, p3, tva = .2) {
+
+    if (isNaN(parseFloat(p1)) || isNaN(parseFloat(p2)) || isNaN(parseFloat(p3)) || isNaN(parseFloat(tva))) return "Error Type";
+
+    return Math.floor((p1 + p2 + p3) * (1 + tva) * 100) / 100;
+}
+
+console.log(sumTTC(...priceHT));
+// On change la tva
+console.log(sumTTC(...priceHT, .5));
+
+const badPriceHT = [100.50, "hello", 55.7];
+
+console.log(sumTTC(...badPriceHT, .3));
+
+// Approche de diviser pour mieux reigner 
+
+console.log('---------- V2 ----------- ');
+
+function ttc(price, tva = .2) {
+
+    // throw stoppera les scripts attention ce script est à utiliser dans le navigateur console
+    if (isNaN(parseFloat(price)) || isNaN(parseFloat(tva))) throw "Error number price value";
+
+    return Math.floor((price * (1 + tva)) * 100) / 100; // deux chiffres significatifs après la virgule
+}
+
+function sumTTC_V2(p1, p2, p3, tva = .2) {
+
+    return ttc(p1, tva) + ttc(p2, tva) + ttc(p3, tva);
+}
+
+console.log(sumTTC_V2(...priceHT, .5));
+
+console.log(sumTTC_V2(...[1, "Bonjour", 17], .5));
+
+```
+
 ### littéral pour définir des paramètres <a class="anchor" id="section73"></a>
 
 Vous pouvez utiliser la syntaxe suivante pour définir les paramètres d'une fonction. Dans ce cas vous n'avez pas à vous soucier de l'ordre des paramètres passé à la fonction.
