@@ -822,6 +822,19 @@ function count_distinct_dice(){
 
 Le this d'un objet est déterminé par la manière dont vous allez appeler l'objet "contexte".
 
+
+### Exercice 
+
+Comment bien utiliser la fonction ci-dessous ? Donnez un exemple concret.
+
+```js
+function Model(table){
+    this.table = table;
+    
+    console.log(this.table);
+}
+```
+
 L'objet sur lequel vous **appelez** la fonction détermine le this :
 
 **objet.my_function()**
