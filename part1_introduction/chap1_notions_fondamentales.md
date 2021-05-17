@@ -430,6 +430,7 @@ function tdz() {
 }
 
 tdz();
+
 ```
 
 ### Exercice for let (sans coder) <a class="anchor" id="section44"></a>
@@ -576,6 +577,31 @@ ttc(100.50, 0.2); // 144.72
 ttc("hello", 0.2); // Erreur de type
 ttc(100.50, "hello"); // Erreur de type
 ttc("100", ".3"); // 130
+```
+
+### Correction
+
+```js
+function ttc(price, tva = 0.2) {
+  price = parseFloat(price);
+  tva = parseFloat(tva);
+
+  if (isNaN(price) || isNaN(tva)) {
+    return "ERROR";
+  }
+
+  // return (price * tva + price) ; // price ( tva + 1 )
+
+  // Math.round
+  return Math.round(price * (tva + 1) * 100) / 100;
+}
+
+console.log(ttc(100));
+console.log(ttc(100, 0.1));
+
+console.log(ttc("50.5"));
+console.log(ttc("50.5", "bonjour"));
+console.log(ttc("Bonjour"));
 ```
 
 ### Syntaxe par décomposition <a class="anchor" id="section72"></a>
