@@ -825,7 +825,7 @@ Le this d'un objet est déterminé par la manière dont vous allez appeler l'obj
 
 ### Exercice 
 
-Comment bien utiliser la fonction ci-dessous ? Donnez un exemple concret.
+Comment bien utiliser la fonction ci-dessous ? Donnez un exemple concret, comment vous allez l'appeler dans le script ?
 
 ```js
 function Model(table){
