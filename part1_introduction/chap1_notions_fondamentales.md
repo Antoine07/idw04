@@ -697,11 +697,13 @@ baz({ b: 2, a : 1}); // 1 2
 
 ### Exercice Dés
 
-1. Créez une fonction qui lance N dés de 6 faces chacun et qui retourne le résultat de ces N dé dans un littéral ou tableau.
+1. Créez une fonction qui lance N dés de 6 faces chacun et qui retourne le résultat de ces N dé dans un littéral ou tableau. Par défaut N = 5 comme dans le jeu du Yams.
 
 2. Déterminez si les dés retournés dans ce tableau forment un carré : c'est-à-dire 4 dés identiques.
 
-*Remarque : vous pouvez utiliser les notions du cours déjà rencontrées pour répondre aux questions.*
+*Remarques : créez une fonction qui compte le nombre d'élément identique dans un tableau, vous pouvez utiliser les notions du cours déjà rencontrées pour répondre aux questions.*
+
+3. Déterminez maintenant si dans le résultat il existe maintenant une suite d'entiers successifs : 1, 2, 3, 4 par exemple.
 
 ### this dans le contexte de l'appel d'une fonction sur un objet <a class="anchor" id="section74"></a>
 
