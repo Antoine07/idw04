@@ -392,6 +392,32 @@ calcul();
 
 ```
 
+### Correction
+
+
+```js
+
+let a = 1;
+
+function calcul() {
+  a = 2 + a; // on ne pouvait pas accéder à la définition de a avant de l'avoir déclaré
+
+  console.log(a, "calcul");
+
+  function sub_calcul() {
+    let b = a + 1;
+
+    console.log(b, "sub_calcul");
+  }
+
+  sub_calcul();
+}
+
+calcul();
+
+```
+
+
 ### Exercice TDZ (temporal dead zone) (sans coder) <a class="anchor" id="section43"></a>
 
 Est ce que le code qui suit vous semble correcte ? Répondez sans exécuter le code.
