@@ -705,6 +705,20 @@ baz({ b: 2, a : 1}); // 1 2
 
 3. Déterminez maintenant si dans le résultat il existe maintenant une suite d'entiers successifs : 1, 2, 3, 4 par exemple.
 
+
+### Correction 
+
+```js
+function occurence({number, numbers}){
+    let count = 0;
+    for(const num of numbers){
+        if (number === num) count++;
+    }
+
+    return count;
+}
+```
+
 ### this dans le contexte de l'appel d'une fonction sur un objet <a class="anchor" id="section74"></a>
 
 Le this d'un objet est déterminé par la manière dont vous allez appeler l'objet "contexte".
