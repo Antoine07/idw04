@@ -848,11 +848,15 @@ Créez une fonction constructeur qui prend un tableau de valeurs numériques et 
 ```js
 "use strict";
 
-function Cart( prices ){
-
+function Cart( { prices, perc } ){
+  this.total = [];
+  for(const price  of prices )
+    this.total.push( price * ( perc + 1 ) ); // factorisation de price *  perc + price 
 }
 
+const myCart = new Cart({ prices : [11,17, 9, 10, 190], perc : .25});
 
+console.log(myCart.total);
 // myCart.total
 ```
 
