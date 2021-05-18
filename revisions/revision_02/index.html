@@ -48,7 +48,8 @@
 
         function handleInput(event){
             letters = event.target.value ;
-            
+            message.innerHTML = '';
+
             // filter renvoie un nouveau tableau
             // letters = letters.split('').filter( function(letter) {
             //     if( letter.trim() !== '') return true;
@@ -67,6 +68,14 @@
         elInput.addEventListener('input', handleInput);
 
         function handleLengthWord(event){
+
+            if(letters.trim() === ''){
+
+                message.innerHTML = 'Attention votre champ est vide';
+
+                return ;
+            }
+
             const words = letters.split(' ').filter( function(letter){
 
                 return ( letter.trim() !== '' ) ; 
