@@ -30,23 +30,24 @@
     <p>Formulaire de saisie</p>
     <div class="form">
         <label for="phrase">Votre phrase : </label>
-        <input type="text" id="phrase" class="phrase">
-        <input type="submit" value="Calculer" class="submitPhrase">
+        <input type="text" id="phrase" class="phrase" />
+        <input type="submit" class="submitPhrase" />
     </div>
     <div>
         <p class="message"></p>
-        <p class="result"></p>
-        <p class="numberWord"></p>
+        <p class="numberLetters"></p>
+        <p class="numberWords"></p>
     </div>
     <script>
         const elInput = document.querySelector('.phrase');
         const elSubmit = document.querySelector('.submitPhrase');
         const message = document.querySelector('.message');
-        const numberWord = document.querySelector('.numberWord');
-        const result = document.querySelector('.result');
+        const numberLetters = document.querySelector('.numberLetters');
+        const numberWords = document.querySelector('.numberWords');
+        let letters = '';
 
         function handleInput(event){
-            let letters = event.target.value ;
+            letters = event.target.value ;
             
             // filter renvoie un nouveau tableau
             // letters = letters.split('').filter( function(letter) {
@@ -54,17 +55,31 @@
             //     else false;
             // });
 
-            letters = letters.split('').filter( function(letter) {
+            const numbers = letters.split('').filter( function(letter) {
                  return ( letter.trim() !== '' ) ;
             });
 
-            console.log(letters.length);
+            console.log(numbers.length);
 
-            result.innerHTML = letters.length ;
-            
+            numberLetters.innerHTML = numbers.length ;
         }
 
         elInput.addEventListener('input', handleInput);
+
+        function handleLengthWord(event){
+            const words = letters.split(' ').filter( function(letter){
+
+                return ( letter.trim() !== '' ) ; 
+            });
+
+            const wordsLength = words.map( function(word) {
+                return word.length;
+            });
+
+            numberWords.innerHTML = wordsLength.length;
+        }
+
+        elSubmit.addEventListener('click', handleLengthWord);
 
     </script>
 </body>
