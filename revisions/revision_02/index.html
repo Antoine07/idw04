@@ -30,7 +30,7 @@
     <p>Formulaire de saisie</p>
     <div class="form">
         <label for="phrase">Votre phrase : </label>
-        <input type="text" id="phrase" class="phrase" />
+        <input type="text" id="phrase" class="phrase"  />
         <input type="submit" class="submitPhrase" />
     </div>
     <div>
@@ -45,6 +45,10 @@
         const numberLetters = document.querySelector('.numberLetters');
         const numberWords = document.querySelector('.numberWords');
         let letters = '';
+
+        phrase.addEventListener('focus', function(e) {
+            e.target.value = '';
+        })
 
         function handleInput(event){
             letters = event.target.value ;
