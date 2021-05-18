@@ -32,3 +32,7 @@ F=6
 G=7
 H=8
 ```
+
+## En plus
+
+Ajoutez une action qui permute les éléments dans le DOM.
