@@ -1,6 +1,6 @@
 # Exercice 01 Créer un élément HTML
 
-Commencez avec l'index.html dans un dossier. Utilisez ce que l'on nous avons vu en cours. Faites par exemple une/des fonction(s) pour répondre aux questions ci-dessous.
+Commencez avec l'index.html dans un dossier avec une partie script ou fichier linké app.js. Utilisez ce que l'on nous avons vu en cours. Faites par exemple une/des fonction(s) pour répondre aux questions ci-dessous.
 
 Nous allons maintenant créer des éléments dans le DOM. La méthode createElement permet de créer un élément HTML :
 
@@ -32,3 +32,4 @@ F=6
 G=7
 H=8
 ```
+
