@@ -19,7 +19,7 @@
         }
 
         .result {
-            color: white;
+            color: black;
             padding: 3px;
         }
     </style>
@@ -39,7 +39,32 @@
         <p class="numberWord"></p>
     </div>
     <script>
-        
+        const elInput = document.querySelector('.phrase');
+        const elSubmit = document.querySelector('.submitPhrase');
+        const message = document.querySelector('.message');
+        const numberWord = document.querySelector('.numberWord');
+        const result = document.querySelector('.result');
+
+        function handleInput(event){
+            let letters = event.target.value ;
+            
+            // filter renvoie un nouveau tableau
+            // letters = letters.split('').filter( function(letter) {
+            //     if( letter.trim() !== '') return true;
+            //     else false;
+            // });
+
+            letters = letters.split('').filter( function(letter) {
+                 return ( letter.trim() !== '' ) ;
+            });
+
+            console.log(letters.length);
+
+            result.innerHTML = letters.length ;
+            
+        }
+
+        elInput.addEventListener('input', handleInput);
 
     </script>
 </body>
