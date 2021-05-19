@@ -9,6 +9,10 @@
 
 3. Créez deux boutons : respectivement le premier vous permettra de déclencher le compteur et le deuxième de l'arrêter. 
 
+4. Ajoutez un bouton reset.
+
+5. Ajoutez un deuxième compteur binaire : 0 1 10 11 100
+
 
 ## Exercice liste de nombre
 
