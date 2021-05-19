@@ -850,7 +850,7 @@ Créez une fonction constructeur qui prend un tableau de valeurs numériques et 
 
 function Cart( { prices, perc } ){
   this.total = [];
-  for(const price  of prices )
+  for(const price of prices )
     this.total.push( price * ( perc + 1 ) ); // factorisation de price *  perc + price 
 }
 
@@ -859,7 +859,6 @@ const myCart = new Cart({ prices : [11,17, 9, 10, 190], perc : .25});
 console.log(myCart.total);
 // myCart.total
 ```
-
 
 L'objet sur lequel vous **appelez** la fonction détermine le this :
 
@@ -886,6 +885,59 @@ console.log(o2.f2()) ; // this de o2
 const o3 = o1.f1;
 
 console.log(o3()) ; // undefined car on n'appelle la fonction f1 explicitement
+```
+
+### Exercice this context
+
+Dans un fichier index.html mettez en évidence le principe que vous venez de voir ci-dessous sur la définition du this lors de l'appel d'une fonction sur un objet.
+
+Faire de même pour les fonctions déclarée et expression de fonction dans un fichier à part.
+
+### Correction 
+
+```js
+'use strict';
+
+const o1 = {
+    f1 : function(){
+
+      return this?.message; // syntaxe nouvelle en JS qui permet de tester l'existence d'un objet avant d'accéder à une propriété
+    },
+    message : 'o1'
+}
+
+console.log(o1.f1()) ; // le this de o1
+
+const o2 = {
+    f2 : o1.f1,
+    message : 'o2'
+}
+
+console.log(o2.f2()) ; // le this de o2
+
+// appel implicite perte du contexte avec cette syntaxe implicite pour la détermination du this
+const o3 = o1.f1; 
+
+console.log(o3()) ; // undefined car on n'appelle la fonction f1 implicitement
+
+// deuxième point du cours fonction déclarée et expression de fonction
+console.log(foo());
+
+// before def => impossible
+// console.log(expFunc());
+
+// fonction déclarée compilée avant leur appel éventuel dans le code
+function foo(){
+    return "foo";
+}
+
+// les expressions de fonction ne peuvent être appelées avant leur définition
+const expFunc = function(){
+    return "expFunc";
+};
+
+console.log(expFunc());
+
 ```
 
 De même, faites attention dans les fonctions de callback. Dans l'exemple qui suit setTimeout fera appel à la fonction sans reprendre le context de l'objet lui-même, this sera, en mode strict, undefined :
@@ -920,6 +972,37 @@ function foo(){
 setTimeout( function (){
 
 })
+```
+
+### Exercice this context
+
+Dans un fichier index.html mettez en évidence le principe que vous venez de voir ci-dessous sur la définition du this lors de l'appel d'une fonction sur un objet.
+
+#### Correction
+
+```js
+'use strict';
+
+const o1 = {
+    f1 : function(){
+
+      return this?.message;
+    },
+    message : 'o1'
+}
+
+console.log(o1.f1()) ; // this de o1
+
+const o2 = {
+    f2 : o1.f1,
+    message : 'o2'
+}
+
+console.log(o2.f2()) ; // this de o2
+
+const o3 = o1.f1;
+
+console.log(o3()) ; // undefined car on n'appelle la fonction f1 explicitement
 ```
 
 #### Exercice function & expression <a class="anchor" id="section751"></a>
