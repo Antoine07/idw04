@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+'use strict';
+
+const o1 = {
+    f1 : function(){
+
+      return this?.message;
+    },
+    message : 'o1'
+}
+
+console.log(o1.f1()) ; // this de o1
+
+const o2 = {
+    f2 : o1.f1,
+    message : 'o2'
+}
+
+console.log(o2.f2()) ; // this de o2
+
+const o3 = o1.f1;
+
+console.log(o3()) ; // undefined car on n'appelle la fonction f1 explicitement
+</script>
+</body>
+</html>
