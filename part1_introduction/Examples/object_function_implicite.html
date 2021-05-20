@@ -14,23 +14,24 @@
 const o1 = {
     f1 : function(){
 
-      return this?.message;
+      return this?.message; // syntaxe nouvelle en JS qui permet de tester l'existence d'un objet avant d'accéder à une propriété
     },
     message : 'o1'
 }
 
-console.log(o1.f1()) ; // this de o1
+console.log(o1.f1()) ; // le this de o1
 
 const o2 = {
     f2 : o1.f1,
     message : 'o2'
 }
 
-console.log(o2.f2()) ; // this de o2
+console.log(o2.f2()) ; // le this de o2
 
-const o3 = o1.f1;
+// appel implicite perte du contexte avec cette syntaxe implicite pour la détermination du this
+const o3 = o1.f1; 
 
-console.log(o3()) ; // undefined car on n'appelle la fonction f1 explicitement
+console.log(o3()) ; // undefined car on n'appelle la fonction f1 implicitement
 </script>
 </body>
 </html>

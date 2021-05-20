@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="">
+    <title>Exercice 1 : Nombre de caractères</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+        }
+       
+        .message{
+            color:orange;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="info_counter">Max counter : <span></span></h1>
+    <div class="form">
+        <label for="max_counter">Taille du counter : </label>
+        <input type="text" id="max_counter" class="max_counter"  />
+        <input type="submit" class="valid_max_counter" />
+    </div>
+    <div class="btnParent">
+        <button class="btnStart" >Start</button>
+        <button class="btnStop" >Stop</button>
+    </div>
+    <div class="counter"></div>
+    <div class="counter_binary"></div>
+    <div class="message" ></div>
+    <script>
+        window.addEventListener("DOMContentLoaded", (event) => {
+            const counter = document.querySelector('.counter');
+            const counterBinary = document.querySelector('.counter_binary');
+
+            const btnParent = document.querySelector('.btnParent');
+            const btnStart = document.querySelector('.btnStart');
+            const btnStop = document.querySelector('.btnStop');
+            const maxCounter = document.querySelector('.max_counter'); // contrôle de la saisie des caractères
+            const validMaxCounter = document.querySelector('.valid_max_counter');
+            const message = document.querySelector('.message');
+
+            const TIMER = 1000;
+            let max_counter = 20;
+            let interval = null, count = 1, number = ''; 
+
+            btnStop.setAttribute("disabled", true);
+            document.querySelector('.info_counter > span').innerHTML = max_counter ;
+
+            const start = () => {
+                clearInterval(interval);
+                let flag = true;
+
+                interval = setInterval(() => {
+                    if(count >= max_counter) clearInterval(interval) ;
+
+                    counter.innerHTML = count;
+                    counterBinary.innerHTML = parseInt( count, 10).toString(2) ;
+                    if( count > 0 && flag){
+                        createBtn("Reset");
+                        flag = false;
+                    }
+                    count++;
+                }, TIMER);
+
+                btnStart.setAttribute("disabled", true);
+                btnStop.removeAttribute("disabled");
+            }
+
+            const stop = () => {
+                clearInterval(interval);
+                btnStop.setAttribute("disabled", true);
+                btnStart.removeAttribute("disabled");
+            }
+
+            btnStart.addEventListener('click', start);
+            btnStop.addEventListener('click', stop);
+
+            // def counter
+
+            maxCounter.addEventListener('focus', function(e) {
+                e.target.value = '';
+                message.innerHTML ='';
+            });
+
+            function handleInput(event){
+                number = event.target.value;
+            }
+
+            maxCounter.addEventListener('input', handleInput);
+
+            validMaxCounter.addEventListener('click', (event) => {
+
+                if( number.trim() === '' ){
+
+                    // TODO : gestion des messages d'erreur
+                    message.innerHTML = "Attention votre champ est";
+
+                    return ;
+                }
+
+                // parseInt(number) != number || parseInt(number) <=  0
+                if( Math.abs( parseInt(number) ) != number || parseInt(number) !=  0){
+
+                    // TODO : gestion des messages d'erreur
+                    message.innerHTML = "Attention le type du champ n'est pas bon";
+
+                    return;
+                }
+
+                max_counter = number;
+
+                document.querySelector('.info_counter > span').innerHTML = max_counter ;
+            });
+
+            // btn reset
+
+            function createBtn(message = "Reset counter" ){
+                const btn = document.createElement('button');
+                btn.classList.add('btnReset');
+                const content = document.createTextNode( message ) ;
+                document.body.insertBefore(btn, btnParent.nextElementSibling);
+
+                btn.appendChild(content);
+
+                btn.addEventListener('click', (event) => {
+                    stop();
+                    // assignation par décomposition
+                    [ counter.innerHTML, counterBinary.innerHTML, count ] = ['', '', 0];
+                    const btnReset = document.querySelector('.btnReset');
+
+                    btnReset.remove();
+                });
+            }
+
+    });
+
+    </script>
+</body>
+
+</html>

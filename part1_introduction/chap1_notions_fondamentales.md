@@ -887,6 +887,59 @@ const o3 = o1.f1;
 console.log(o3()) ; // undefined car on n'appelle la fonction f1 explicitement
 ```
 
+### Exercice this context
+
+Dans un fichier index.html mettez en évidence le principe que vous venez de voir ci-dessous sur la définition du this lors de l'appel d'une fonction sur un objet.
+
+Faire de même pour les fonctions déclarée et expression de fonction dans un fichier à part.
+
+### Correction 
+
+```js
+'use strict';
+
+const o1 = {
+    f1 : function(){
+
+      return this?.message; // syntaxe nouvelle en JS qui permet de tester l'existence d'un objet avant d'accéder à une propriété
+    },
+    message : 'o1'
+}
+
+console.log(o1.f1()) ; // le this de o1
+
+const o2 = {
+    f2 : o1.f1,
+    message : 'o2'
+}
+
+console.log(o2.f2()) ; // le this de o2
+
+// appel implicite perte du contexte avec cette syntaxe implicite pour la détermination du this
+const o3 = o1.f1; 
+
+console.log(o3()) ; // undefined car on n'appelle la fonction f1 implicitement
+
+// deuxième point du cours fonction déclarée et expression de fonction
+console.log(foo());
+
+// before def => impossible
+// console.log(expFunc());
+
+// fonction déclarée compilée avant leur appel éventuel dans le code
+function foo(){
+    return "foo";
+}
+
+// les expressions de fonction ne peuvent être appelées avant leur définition
+const expFunc = function(){
+    return "expFunc";
+};
+
+console.log(expFunc());
+
+```
+
 De même, faites attention dans les fonctions de callback. Dans l'exemple qui suit setTimeout fera appel à la fonction sans reprendre le context de l'objet lui-même, this sera, en mode strict, undefined :
 
 ```js
@@ -1166,6 +1219,35 @@ const log = {
 setTimeout(log.save, 500);
 ```
 
+### Correction
+
+```js
+
+const log = {
+    count : 100,
+    save: function () {
+        'use strict';
+        console.log(this.count);
+    }
+}
+
+// bonne réponse
+setTimeout(() => log.save(), 500);
+
+// texter son code dans un autre scope
+(function() {
+    const log = {
+        count : 100,
+        save:  () => {
+            'use strict';
+            console.log(this.count);
+        }
+    }
+    
+    setTimeout(log.save, 500);
+})();
+``
+
 ### Introduction à la notion de prototype pour une fonction  <a class="anchor" id="section7100"></a>
 
 ```js
@@ -1228,6 +1310,119 @@ Créez un nouveau prototype average dans la fonction constructeur User, qui calc
 Quand JS appelle cette méthode il ne la trouvera pas dans l'instance de User mais dans son prototype. Cette technique permet donc de créer des méthodes partagées par toutes les instances. Notez que vous pouvez tout à fait définir la méthode fullName après avoir fait son instance.
 
 JS possède depuis **ES6** un mot clé class pour définir une classe, nous verrons qu'en fait ce mot clé permet de définir, comme dans l'exemple précédent, un constructeur.
+
+
+### Correction
+
+```js
+'use strict';
+
+// fonction constructeur
+function User(name, lastname){
+  this.name = name;
+  this.lastname = lastname;
+}
+
+const u1 = new User('Alan', 'Phi'); 
+
+// On ajoute sur le constructeur lui-même la propriété
+User.prototype.fullName = function (){
+
+  return this.name + ' ' + this.lastname;
+}
+
+User.prototype.setAge = function(age){
+  this.age = parseInt(age) == age ? age : null;
+}
+
+User.prototype.setNotes = function(notes){
+  this.notes = Array.isArray(notes) ? notes : [];
+  this.setLength();
+}
+
+User.prototype.setLength = function(){
+  this.length = this.notes?.length ;
+} ;
+
+User.prototype.average = function(){
+  if( this.length > 0 ) return (
+    Math.floor( (this.notes.reduce((acc, curr) => acc + curr ) / this.length) * 100 ) / 100 
+  );
+}
+
+User.prototype.hydrate = function({age, name, notes}){
+    [this.age, this.name, this.notes ] =  [age, name, notes];
+};
+
+console.log(u1.fullName()); // Alan Phi
+
+u1.setAge(45);
+console.log(u1.age); // Alan Phi
+
+u1.setNotes([15, 17, 13, 19, 20, 17]);
+console.log(u1.length);
+
+console.log(u1.average());
+
+const users = [
+  {
+    name : "Alan ",
+    lastname : 'Phi',
+    age : 45,
+    notes : [15, 17, 13]
+  },
+  {
+    name : "Bernad ",
+    lastname : 'Lu' ,
+    age : 78,
+    notes : [11, 12, 9]
+  },
+  {
+    name : "Sophie ",
+    lastname : 'Boo',
+    age : 56,
+    notes : [10, 15, 11]
+  },
+  {
+    name : "Alice ",
+    lastname : 'Car',
+    age : 45,
+    notes : [5, 18, 20]
+  },
+];
+
+const Container = [];
+
+for(const {age, name, lastname, notes} of users){
+  const user = new User(name, lastname);
+  user.setAge(age);
+  user.setNotes(notes);
+  Container.push(user);
+
+  console.log(user.average());
+}
+
+console.log(Container);
+```
+
+
+### Exercice un littéral
+
+Définir un prototype sum sur le littéral "o" suivant. Utilisez la syntaxe __proto__ pour définir de cette méthode sur l'objet :
+
+```js
+
+const o ={
+  a : 1,
+  b : 3,
+  c : 7,
+  d : 8,
+  e : 9
+};
+
+// une fois votre fonction défénie sur o vérifiez que celle-ci donne bien la somme des propriétés de l'objet o
+console.log(o.sum()) ; 
+```
 
 ## Quelques fonctions JS utiles pour le traitement des données  <a class="anchor" id="chapter8"></a>
 
