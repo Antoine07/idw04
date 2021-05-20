@@ -21,3 +21,5 @@ Dans un fichier index.html
 1. Créez un formulaire permettant d'ajouter un nombre à une liste. Puis affichez ces nombres dans la page.
 
 2. Changez la couleur des nombres pairs dans la liste des nombres à afficher.
+
+3. Ajoutez un bouton par nombre il permettra de supprimer celui dans la liste.
