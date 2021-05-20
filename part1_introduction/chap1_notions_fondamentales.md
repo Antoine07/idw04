@@ -1491,6 +1491,54 @@ const o ={
 console.log(o.sum()) ; 
 ```
 
+### Correction
+
+```js
+
+const o = {
+    a : 1,
+    b : 3,
+    c : 7,
+    d : 8,
+    e : 9,
+    f : { value : 100 }
+};
+
+// prototype object
+o.__proto__.sum = function(){
+    let s = 0;
+    for(const k in this) {
+        if( typeof this[k] === 'function' || typeof this[k] !== 'number' ) continue; // permet là où c'est rencontré d'aller à l'itération suivante sans exécuter le code après ce mot clé
+        s += this[k];
+    };
+
+    return s ;
+}
+
+console.log( o.sum() );
+
+// Un autre exemple avec un objet plus complexe
+const p = {
+    a : { value : 99 },
+    b : { value : 23 },
+    c : { value : 77 },
+    d : { value : 89 },
+    e : { value : 10 },
+    f : { value : 14 }
+};
+
+p.__proto__.sum = function(){
+    // Mettre les clés de l'objet dans un tableau 
+    console.log( Object.keys(this) )
+
+    return  ( 
+        Object.keys(this).map( k => this[k].value ).reduce((acc, curr) => acc + curr) 
+    )
+}
+
+console.log( p.sum() );
+```
+
 ## Quelques fonctions JS utiles pour le traitement des données  <a class="anchor" id="chapter8"></a>
 
 ### La fonction JS map <a class="anchor" id="section81"></a>
