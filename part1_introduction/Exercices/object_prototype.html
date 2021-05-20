@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+<script>
+    const root = document.getElementById('root');
+    const o = {
+        a : 1,
+        b : 3,
+        c : 7,
+        d : 8,
+        e : 9,
+        f : { value : 100 }
+    };
+
+    // prototype object
+    o.__proto__.sum = function(){
+        let s = 0;
+        for(const k in this) {
+            if( typeof this[k] === 'function' || typeof this[k] !== 'number' ) continue; // permet là où c'est rencontré d'aller à l'itération suivante sans exécuter le code après ce mot clé
+            s += this[k];
+        };
+
+        return s ;
+    }
+
+    console.log( o.sum() );
+
+    root.innerHTML = `La somme recherchée est : ${o.sum() }`;
+
+    // Deuxième objet p
+    const p = {
+        a : { value : 99 },
+        b : { value : 23 },
+        c : { value : 77 },
+        d : { value : 89 },
+        e : { value : 10 },
+        f : { value : 14 }
+    };
+
+</script>
+</body>
+</html>
