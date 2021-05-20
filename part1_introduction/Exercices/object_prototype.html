@@ -44,6 +44,19 @@
         f : { value : 14 }
     };
 
+    p.__proto__.sum = function(){
+       // Mettre les clés de l'objet dans un tableau 
+       console.log( Object.keys(this) )
+
+       return  ( 
+           Object.keys(this).map( k => this[k].value ).reduce((acc, curr) => acc + curr) 
+        )
+    }
+
+    console.log( p.sum() );
+    const res = document.createElement('div');
+    res.innerHTML = `Somme object p : ${p.sum()}`;
+    document.body.insertBefore(res, root.nextElementSibling);
 </script>
 </body>
 </html>
