@@ -1305,6 +1305,73 @@ Créez maintenant les 4 users suivants :
 - Alice Car age 45 ans notes : 5, 18, 20
 ```
 
+### Correction
+
+```js
+'use strict';
+
+function User(name, lastname){
+  this.name = name;
+  this.lastname = lastname;
+}
+
+const u1 = new User('Alan', 'Phi'); 
+
+// On ajoute sur le constructeur lui-même la propriété
+User.prototype.fullName = function (){
+
+  return this.name + ' ' + this.lastname;
+}
+
+User.prototype.setAge = function(age){
+  this.age = parseInt(age) == age ? age : null;
+}
+
+User.prototype.setNotes = function(notes){
+  this.notes = Array.isArray(notes) ? notes : []
+}
+
+// User.prototype.length =  this.notes?.length ;
+
+User.prototype.average = function(){
+  if(this.notes.length > 0) return Math.floor( (this.notes.reduce((acc, curr) => acc + curr ) / this.notes.length) * 100 ) / 100 ;
+}
+
+console.log(u1.fullName()); // Alan Phi
+
+u1.setAge(45);
+console.log(u1.age); // Alan Phi
+
+u1.setNotes([15, 17, 13]);
+
+console.log(u1.average());
+
+const users = [
+  {
+    name : "Alan Phi",
+    age : 45,
+    notes : [15, 17, 13]
+  },
+  {
+    name : "Bernad Lu",
+    age : 78,
+    notes : [11, 12, 9]
+  },
+  {
+    name : "Sophie Boo",
+    age : 56,
+    notes : [10, 15, 11]
+  },
+  {
+    name : "Alice Car",
+    age : 45,
+    notes : [5, 18, 20]
+  },
+];
+
+
+```
+
 Créez un nouveau prototype average dans la fonction constructeur User, qui calculera la moyenne des notes de chaque user.
 
 Quand JS appelle cette méthode il ne la trouvera pas dans l'instance de User mais dans son prototype. Cette technique permet donc de créer des méthodes partagées par toutes les instances. Notez que vous pouvez tout à fait définir la méthode fullName après avoir fait son instance.
