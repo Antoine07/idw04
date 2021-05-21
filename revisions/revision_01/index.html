@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="">
+    <title>Exercice 1 : Nombre de caractères</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+        }
+
+        .result {
+            color: white;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Listes nombres</h1>
+    <ul class="numbers"></ul>
+    <div>
+        <button class="btn" >Shuffle</button>
+    </div>
+    <script>
+        const container = document.querySelector('.numbers');
+        const btn = document.querySelector('.btn');
+
+        const alphabets = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
+
+        function create(number = 8){
+            let li = null, count = 1;
+
+            for(const letter of alphabets) {
+                if( count > number && count < 27 ) break;
+
+                li = document.createElement('li');
+                li.innerHTML = `${letter}=${count}`;
+                count++;
+                container.appendChild(li);
+            }
+        }
+
+        create();
+
+        btn.addEventListener('click', function(){
+            lis = document.querySelectorAll('.numbers > li'); // Nodelist
+
+            // Array.from => permet d'avoir un tableau sur un itérable
+            // l'astuce c'est de faire changer le signe de sort pour chaque comparaison dans l'algo de tri
+            lis = Array.from(lis).sort( () => 0.5 - Math.random() );
+            document.querySelectorAll('.numbers').innerHTML = '';
+            for(const li of lis){
+                container.appendChild(li);
+            }
+            
+        });
+
+
+    </script>
+</body>
+
+</html>
