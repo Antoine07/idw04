@@ -1600,9 +1600,24 @@ Faites la somme des nombres impairs en utilisant la fonction reduce des valeurs 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ```
 
+### Correction
+
+```js
+const numbers = [101, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+
+console.log( numbers.reduce((acc, curr) => {
+    if( curr % 2 === 1) return acc + curr;
+
+    return acc;
+}, 0));
+
+console.log( numbers.reduce((acc, curr) => (curr % 2) === 0 ? acc : acc + curr, 0 ) );
+```
+
 #### Exercice fonction map sur un littéral <a class="anchor" id="section8104"></a>
 
-Utilisez la fonction map pour calculer le prix TTC des téléphones. Utilisez une fonction fléchée.
+Utilisez la fonction map ou reduce pour calculer le prix TTC des téléphones. Utilisez une fonction fléchée.
 
 ```js
 const phones = [
@@ -1610,6 +1625,38 @@ const phones = [
   { name: "iphone X", priceHT: 700 },
   { name: "iphone B", priceHT: 200 },
 ];
+```
+
+### Correction
+
+```js
+
+const phones = [
+    { name: "iphone XX", priceHT: 900 },
+    { name: "iphone X", priceHT: 700 },
+    { name: "iphone B", priceHT: 200 },
+  ];
+
+const res = phones.reduce((acc, curr)=>{
+    return (acc + curr.priceHT * 1.2)
+}, 0);
+
+console.log(res);
+
+console.log((900 + 700 + 200) * 1.2) ;
+
+const res2 = phones.reduce((acc, { priceHT } )=>{
+    return (acc + priceHT * 1.2)
+}, 0);
+
+console.log(res2);
+
+
+const res3 =phones
+        .map( phone => phone.priceHT * 1.2 )
+        .reduce((acc, curr) => acc + curr ) ;
+
+console.log(res3);
 ```
 
 ## Affectation par décomposition <a class="anchor" id="chapter9"></a>
