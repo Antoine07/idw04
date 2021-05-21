@@ -127,9 +127,81 @@ p(9)
 
 Remarque : vous pouvez enchaîner plusieurs promesses, elles seront résolues l'une à la suite de l'autre.
 
+```js
+const p = number => ( new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if(number > 100) {
+            reject(new Error('To big'));
+            return;
+        }
+        resolve(number);
+    }, 300);
+    })
+);
+
+p(9).then( num=> p(10+ num))
+    .then(console.log)
+    .catch(console.error);
+```
+
 ## Exercice add avec des promesses
 
 Reprenez l'exercice précédent avec la fonction **add** mais cette fois-ci utilisez des promesses.
+
+### Correction
+
+```js
+const add = number => ( new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if( parseFloat(number) != number ) {
+            reject(new Error('is not a numeric number'));
+            return;
+        }
+        resolve( parseFloat(number) );
+    }, 500);
+    })
+);
+
+const res = add( "19.9" ) // la promesse qu'on a défini qui est exécutée
+    .then( num => num + 1) // notre retourne une promesse
+    .then( num => num + 3)
+    .then(num => num + 19.5) // par d'erreur car ce n'est plus notre promesse
+    .then(console.log)
+    .catch(console.error);
+
+console.log(res); // c'est du type promesse
+
+// meme style que callback hell 
+
+add( 19.9 ) // la promesse qu'on a défini qui est exécutée
+    .then( num => add(num + 1)) 
+    .then( num => add(num + 2)) 
+    // .then( num => add("Bonjour"))  // ici l'erreur que l'on a programmé est retournée
+    .then( console.log)
+    .catch(console.error);
+
+
+// Addition de deux nombres avec une fonction qui retourne une Promesse
+const add_v2 = (num1, num2) => ( new Promise((resolve, reject) => {
+    setTimeout(() => {
+        if( parseFloat(num1) != num1  || parseFloat(num2) != num2) {
+            reject(new Error('is not a numeric number'));
+            return;
+        }
+        resolve( parseFloat(num1) + parseFloat(num2) );
+    }, 500);
+    })
+);
+
+add_v2(1, 2)
+    .then( res => {
+        console.log('------ deuxième version add_v2(1,2) ')
+        console.log(res);
+    })
+    .catch (err => console.error(err) );
+```
+
+---- à lire pour aller plus loin
 
 ## Promise all
 
