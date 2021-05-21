@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+'use strict';
+
+// fonction constructeur
+function User(name, lastname){
+  this.name = name;
+  this.lastname = lastname;
+}
+
+const u1 = new User('Alan', 'Phi'); 
+
+// On ajoute sur le constructeur lui-même la propriété
+User.prototype.fullName = function (){
+
+  return this.name + ' ' + this.lastname;
+}
+
+User.prototype.setAge = function(age){
+  this.age = parseInt(age) == age ? age : null;
+}
+
+User.prototype.setNotes = function(notes){
+  this.notes = Array.isArray(notes) ? notes : [];
+  this.setLength();
+}
+
+User.prototype.setLength = function(){
+  this.length = this.notes?.length ;
+} ;
+
+User.prototype.average = function(){
+  if( this.length > 0 ) return (
+    Math.floor( (this.notes.reduce((acc, curr) => acc + curr ) / this.length) * 100 ) / 100 
+  );
+}
+
+User.prototype.hydrate = function({age, name, notes}){
+    [this.age, this.name, this.notes ] =  [age, name, notes];
+};
+
+console.log(u1.fullName()); // Alan Phi
+
+u1.setAge(45);
+console.log(u1.age); // Alan Phi
+
+u1.setNotes([15, 17, 13, 19, 20, 17]);
+console.log(u1.length);
+
+console.log(u1.average());
+
+const users = [
+  {
+    name : "Alan ",
+    lastname : 'Phi',
+    age : 45,
+    notes : [15, 17, 13]
+  },
+  {
+    name : "Bernad ",
+    lastname : 'Lu' ,
+    age : 78,
+    notes : [11, 12, 9]
+  },
+  {
+    name : "Sophie ",
+    lastname : 'Boo',
+    age : 56,
+    notes : [10, 15, 11]
+  },
+  {
+    name : "Alice ",
+    lastname : 'Car',
+    age : 45,
+    notes : [5, 18, 20]
+  },
+];
+
+const Container = [];
+
+for(const {age, name, lastname, notes} of users){
+  const user = new User(name, lastname);
+  user.setAge(age);
+  user.setNotes(notes);
+  Container.push(user);
+
+  console.log(user.average());
+}
+
+console.log(Container);
+
+</script>
+</body>
+</html>
