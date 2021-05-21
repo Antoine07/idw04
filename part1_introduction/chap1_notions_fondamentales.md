@@ -1668,7 +1668,7 @@ let a, b;
 [a, b] = [10, 20];
 ```
 
-Si vous ne souhaitez affecter que quelques variables et récupérer le reste de l'assignation dans un tableau, vous pouvez utiliser le spread operator :
+Si vous ne souhaitez  affecter que quelques variables et récupérer le reste de l'assignation dans un tableau, vous pouvez utiliser le spread operator :
 
 ```js
 let a, b, rest;
@@ -1744,6 +1744,13 @@ const infoStudent_bis = ({ note, mention }) => "info : " + mention + "note : " +
 let a = 1, b = 2;
 ```
 
+### Correction
+
+```js
+let a = 1, b = 2;
+[a, b] = [b, a];
+```
+
 - Soient les trois variables a, b, et c permutez les valeurs dans l'ordre suivant :
 
 - a <- b
@@ -1752,6 +1759,14 @@ let a = 1, b = 2;
 
 ```js
 let a = 1, b = 2, c = 4;
+```
+
+### Correction
+
+```js
+let a = 1, b = 2, c = 4;
+[a, b, c] = [b, c, a];
+
 ```
 
 ### Exercice assigner par décomposition  <a class="anchor" id="section92"></a>
@@ -1859,6 +1874,13 @@ const str1 = ["one", "two"];
 const str2 = ["three", "four"];
 ```
 
+### Correction
+
+```js
+strNumbers.push( ...str1, ...str2 );
+// ["one", "two", "three", "four"]
+```
+
 ### Nom de propriété calculé et décomposition <a class="anchor" id="section102"></a>
 
 Vous pouvez utiliser une variable pour définir une clé d'un littéral. Dans la syntaxe ci-dessous, il faut utiliser les crochets pour que JS interprète la variable comme une clé du littéral.
@@ -1870,8 +1892,8 @@ const state = {
 };
 
 // définition d'une clé dynamique
-let name = "email";
-const newState = { ...state, [name]: "bernard@bernard.fr" };
+let mail = "email";
+const newState = { ...state, [mail]: "bernard@bernard.fr" };
 ```
 
 ## Exercice ordre et longueur de mots
@@ -1890,6 +1912,13 @@ const students = [ "Alan", "Philippe", "Tony", "Geraldine", "Michelle", "Phi" ];
 
 ```js
 const numbers = [ 10, 7, 5, 1, 10, 5];
+```
+
+### Correction
+
+```js
+// sort on doit passer une fonction de comparaison pour le forcer à faire l'ordre sur des numériques sinon l'ordre est fait sur des caractères.
+numbers.sort((a,b)=> a - b );
 ```
 
 ## Exercice populations
@@ -2029,3 +2058,52 @@ const students = [
 ];
 
 ```
+
+## Exemple de copie profonde
+
+```js
+
+// 1
+
+const numbers = [1,2,3];
+const newNumbers = [ ...numbers ];
+
+newNumbers[1] = 100;
+
+console.log(numbers);
+console.log(newNumbers);
+
+// 2 copie profonde
+
+// Attention le spread opérateur ne fait pas de copie profonde
+
+const populations = [
+    { id: 0, name: "Alan" }, // d'autres objets => d'autres référence
+    { id: 1, name: "Albert" },
+    { id: 2, name: "Jhon" },
+    { id: 3, name: "Brice" },
+    { id: 4, name: "Alexendra" },
+    { id: 5, name: "Brad" },
+    { id: 6, name: "Carl" },
+    { id: 7, name: "Dallas" },
+    { id: 8, name: "Dennis" },
+    { id: 9, name: "Edgar" },
+    { id: 10, name: "Erika" },
+    { id: 11, name: "Isaac" },
+    { id: 12, name: "Ian" },
+  ];
+
+  const newPop = [ ... populations ]; // pas de copie profonde
+
+  newPop[0].name = "ALICE";
+
+  console.log(newPop);
+  console.log(populations);
+
+  const deepCopy = populations.map( population => ({...population}) ) ; // chaque littéral est copié dans une nouvelle réf
+
+  deepCopy[0].name = "Alan";
+
+  console.log(newPop);
+  console.log(deepCopy);
+  ``
